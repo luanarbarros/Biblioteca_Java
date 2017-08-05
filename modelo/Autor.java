@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Autor {
 	private String nome;
-	private ArrayList<Livro> produtos = new ArrayList<Livro>();
+	private ArrayList<Livro> livros = new ArrayList<Livro>();
 
 
 	public Autor (String nome){
@@ -18,8 +18,26 @@ public class Autor {
 		this.nome = nome;
 	}
 	
+	public int getTotalLivros(){
+		return livros.size();
+	}
+	
+	public void adicionarLivro(Livro l){
+		livros.add(l);
+		l.setAutor(this);
+	}
+	
 	public String toString(){
-		return nome != null ? "autor=" + nome + ", " : "autor não cadastrado";
+		String texto = nome != null ? "autor=" + nome : "autor não cadastrado";
+		if (nome!=null)
+		{
+			texto +="\n livros=";
+			for(Livro l: livros)
+				texto+= " "+ l.getTitulo() +",";
+			return texto;
+		}
+		else
+			return texto;
 	}
 	
 }
