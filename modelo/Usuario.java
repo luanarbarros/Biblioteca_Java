@@ -77,8 +77,9 @@ public class Usuario {
 		{
 			for (int i = 0; i < emprestimos.size(); i++)
 			{
-				
+				text = text + emprestimos.get(i).getId() + " ";
 			}
+			return text;
 		}
 	}
 	
