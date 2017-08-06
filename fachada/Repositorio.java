@@ -30,6 +30,10 @@ public class Repositorio {
 		}
 		return null;
 	}
+	public ArrayList<Autor> getAutores(){
+		return autores;
+	}
+	
 	//EMPRESTIMO
 	public void adicionarEmprestimo (Emprestimo e)
 	{
@@ -49,6 +53,10 @@ public class Repositorio {
 		return null;
 	}
 	
+	public ArrayList<Emprestimo> getEmprestimos(){
+		return emprestimos;
+	}
+	
 	//LIVRO
 	public void adicionarLivro (Livro l){
 		livros.add(l);
@@ -66,6 +74,10 @@ public class Repositorio {
 		return null;
 	}
 	
+	public ArrayList<Livro> getLivros(){
+		return livros;
+	}
+	
 	//USUARIO
 	public void adicionarUsuario(Usuario u){
 		usuarios.add(u);
@@ -81,5 +93,9 @@ public class Repositorio {
 				return u;
 		}
 		return null;
+	}
+	
+	public ArrayList<Usuario> getUsuarios(){
+		return usuarios;
 	}
 }

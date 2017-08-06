@@ -86,14 +86,14 @@ public class Livro {
 	public String toString()
 	{
 		String text;
-		text = "Titulo= " + titulo + "quantidade" + quantidade;
-		text += "\nAutores = ";
+		text = "\nTitulo: " + titulo;
+		text += "\nAutores: ";
 		for (int i = 0; i < autores.size(); i++)
 		{
-			text += autores.get(i).getNome() + " ";
+			text += autores.get(i).getNome() + "; ";
 		}
-		
-		text = text + "\nEmprestimos = ";
+		text+= "\nQuantidade: " + quantidade;
+		text = text + "\nEmprestimos: ";
 		
 		for (int i = 0; i < emprestimos.size(); i++)
 		{
