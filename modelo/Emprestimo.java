@@ -7,18 +7,21 @@ public class Emprestimo {
 	private String datadev;
 	private double multa;
 	
-	public Emprestimo (int i, String datae, String datad, double m)
+	public Emprestimo (int id, String dataemp, String datadev, double multa)
 	{
-		id = i;
-		dataemp = datae;
-		datadev = datad;
-		multa = m;
+		this.id = id;
+		this.dataemp = dataemp;
+		this.datadev = datadev;
+		this.multa = multa;
 		
 	}
 	
-	public double getId ()
-	{
+	public double getId()	{
 		return id;
+	}
+	
+	public void setId(int id){
+		this.id=id;
 	}
 
 }
