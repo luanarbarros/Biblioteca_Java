@@ -10,12 +10,24 @@ import modelo.Usuario;
 public class Fachada {
 
 		private static Repositorio repositorio = new Repositorio();
-		//private static int idemprestimo=0;
+		private static int idemprestimo=0;
 		
 		public static Livro cadastrarLivros(String titulo, ArrayList<String>nomes, int quantidade) throws Exception{
 			Livro l = repositorio.localizarLivro(titulo);
 			if (l!=null)
-				throw new Exception ("Livro ja cadastrado: " + titulo);
+				throw new Exception ("Livro ja cadastrado: " + titulo + "\n");
+			
+			//Impede autores duplicados
+			for(int i=0; i < nomes.size(); i++){
+				for(int j=0; j < nomes.size(); j++){
+					if(i!=j){
+						if(nomes.get(i) == nomes.get(j)){
+							throw new Exception ("Autores duplicados\n");
+						}
+					}
+				}
+			}
+			
 			l = new Livro(titulo, quantidade);
 			
 			for (String n: nomes){
@@ -30,6 +42,16 @@ public class Fachada {
 			}
 			repositorio.adicionarLivro(l);
 			return l;
+		}
+		
+		public static Usuario cadastrarUsuario(String nome, String senha) throws Exception{
+			Usuario u = repositorio.localizarUsuario(nome);
+			if(u!=null){
+				throw new Exception ("Usuario ja cadastrado");
+			}
+			u=new Usuario(nome, senha);
+			repositorio.adicionarUsuario(u);
+			return u;
 		}
 		
 		public static ArrayList<Livro> listarLivros(){

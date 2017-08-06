@@ -17,6 +17,12 @@ public class Usuario {
 		prazo = p;
 	}
 	
+	public Usuario (String n, String s)
+	{
+		nome = n;
+		senha = s;
+	}
+	
 	public String getNome()
 	{
 		return nome;

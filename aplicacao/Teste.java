@@ -42,8 +42,16 @@ public class Teste {
 			autores5.add("Coelho, A.A.R.");
 			autores5.add("Coelho, L.S.");
 			l = Fachada.cadastrarLivros("Identificacao de Sistemas Dinamicos Lineares", autores5, 2);
+			
+			ArrayList<String> autores6 = new ArrayList<String>();
+			autores6.add("Luana");
+			autores6.add("Luana");
+			l = Fachada.cadastrarLivros("The best person in the world: me", autores6, 2);
+			
+			
 				
 		}catch (Exception e){
+			
 			System.out.println(e.getMessage());
 		}
 	}
