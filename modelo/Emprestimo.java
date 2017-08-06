@@ -56,7 +56,17 @@ public class Emprestimo {
 	public Usuario getUsuario(){
 		return usuario;
 	}
+	
 	public void setUsuario(Usuario usuario){
 		this.usuario=usuario;
+	}
+	
+	public String toString(){
+		return "Emprestimo numero ="+ id 
+				+ "\n Data de Emprestimo = " + dataemp
+				+ "\n Data de Devolução = " + datadev
+				+ "\n Usuario = " + usuario.getNome()
+				+ "\n Livro = " + livro.getTitulo()
+				+ "\n Multa = " + multa;
 	}
 }

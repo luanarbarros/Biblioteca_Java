@@ -32,6 +32,14 @@ public class Autor {
 		l.removerAutor(null);
 	}
 	
+	public Livro localizarLivro(String titulo){
+		for(Livro l : livros){
+			if(l.getTitulo() == titulo)
+				return l;
+		}
+		return null;
+	}
+	
 	public String toString(){
 		String texto = nome != null ? "autor=" + nome : "autor não cadastrado";
 		if (nome!=null)
