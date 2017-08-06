@@ -51,7 +51,7 @@ public class Livro {
 		autores.add(a);
 	}
 	
-	public void adicionaEmprestimo (Emprestimo e)
+	public void adicionarEmprestimo (Emprestimo e)
 	{
 		emprestimos.add(e);
 	}
