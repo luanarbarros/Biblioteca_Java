@@ -61,13 +61,44 @@ public class Livro {
 		autores.remove(a);
 	}
 	
-	public void removerEmprestimo (E)
+	public void removerEmprestimo (Emprestimo e)
+	{
+		emprestimos.add(e);
+	}
+	
+	public Autor localizarAutor(String nome){
+		for(Autor a : autores){
+			if(a.getNome().equals(nome))
+				return a;
+		}
+		return null;
+	}
+	
+	public Emprestimo localizarEmprestimo(int id){
+		for(Emprestimo e : emprestimos){
+			if(e.getId() == id)
+				return e;
+		}
+		return null;
+	}
 	
 	
 	public String toString()
 	{
 		String text;
 		text = "Titulo= " + titulo + "quantidade" + quantidade;
+		text += "\nAutores = ";
+		for (int i = 0; i < autores.size(); i++)
+		{
+			text += autores.get(i).getNome() + " ";
+		}
+		
+		text = text + "\nEmprestimos = ";
+		
+		for (int i = 0; i < emprestimos.size(); i++)
+		{
+			text += emprestimos.get(i).getId() + " ";
+		}
 		return text;
 	}
 	
