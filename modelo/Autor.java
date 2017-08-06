@@ -24,7 +24,12 @@ public class Autor {
 	
 	public void adicionarLivro(Livro l){
 		livros.add(l);
-		l.setAutor(this);
+		l.adicionarAutor(this);
+	}
+	
+	public void removerLivro(Livro l){
+		livros.remove(l);
+		l.removerAutor(null);
 	}
 	
 	public String toString(){
