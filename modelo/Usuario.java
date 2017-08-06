@@ -64,7 +64,7 @@ public class Usuario {
 		return null;
 	}
 	
-	public String toString ()
+	public String toString()
 	{
 		String text;
 		text = "nome= " + nome + " senha= " + senha + " prazo= " + prazo + " ";
