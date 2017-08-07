@@ -24,7 +24,6 @@ public class Autor {
 	
 	public void adicionarLivro(Livro l){
 		livros.add(l);
-		l.adicionarAutor(this);
 	}
 	
 	public void removerLivro(Livro l){
@@ -41,12 +40,13 @@ public class Autor {
 	}
 	
 	public String toString(){
-		String texto = nome != null ? "autor=" + nome : "autor não cadastrado";
+
+		String texto = nome != null ? "Autor: " + nome : "autor não cadastrado";
 		if (nome!=null)
 		{
-			texto +="\n livros=";
+			texto +="\nLivros: ";
 			for(Livro l: livros)
-				texto+= " "+ l.getTitulo() +",";
+				texto+= l.getTitulo() + "\n";
 			return texto;
 		}
 		else
