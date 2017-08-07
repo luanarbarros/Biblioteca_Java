@@ -9,8 +9,50 @@ import modelo.Usuario;
 
 public class Fachada {
 
+		// ATRIBUTOS DA CLASSE
 		private static Repositorio repositorio = new Repositorio();
-		private static int idemprestimo=0;
+		private static Usuario logado = null; // armazena o usuário logado
+		private static int idemprestimo=0; 
+		
+		//MÉTODOS PARA FAZER LOGIN E LOGOFF
+		
+		public static Usuario login (String nome, String senha) throws Exception
+		{
+			Usuario u = repositorio.localizarUsuario(nome);
+			if (u == null)
+			{
+				throw new Exception ("Erro: Usuário não cadastrado");
+			}
+			else if (logado != null)
+			{
+				throw new Exception ("Erro: Já existe um usuário logado");
+			}
+			else
+			{
+				logado = u;
+			}
+			return logado;
+		}
+		
+		public static void logoff () throws Exception
+		{
+			if (logado == null)
+			{
+				throw new Exception ("Não há usuário logado");
+			}
+			else
+			{
+				logado = null;
+			}
+		}
+		
+		public static Usuario getLogado ()
+		{
+			return logado;
+		}
+		
+		
+		//MÉTODOS DE CADASTRO
 		
 		public static Livro cadastrarLivros(String titulo, ArrayList<String>nomes, int quantidade) throws Exception{
 			Livro l = repositorio.localizarLivro(titulo);
@@ -44,15 +86,22 @@ public class Fachada {
 			return l;
 		}
 		
+		
 		public static Usuario cadastrarUsuario(String nome, String senha) throws Exception{
 			Usuario u = repositorio.localizarUsuario(nome);
 			if(u!=null){
 				throw new Exception ("Usuario ja cadastrado");
 			}
-			u=new Usuario(nome, senha);
-			repositorio.adicionarUsuario(u);
-			return u;
+			else
+			{
+				u=new Usuario(nome, senha);
+				repositorio.adicionarUsuario(u);
+				return u;
+			}
 		}
+		
+		
+		// MÉTODOS DE LISTAGEM
 		
 		public static ArrayList<Livro> listarLivros(){
 			return repositorio.getLivros();
