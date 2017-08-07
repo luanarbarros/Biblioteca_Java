@@ -1,5 +1,6 @@
 package aplicacao;
 
+
 import java.util.ArrayList;
 
 import fachada.Fachada;
@@ -86,6 +87,10 @@ public class Teste {
 //***********************MAIN***********************
 	public static void main(String[] args) 
 	{
+		
+
+		
+		
 		new Teste();
 	}
 

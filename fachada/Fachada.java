@@ -1,6 +1,10 @@
 package fachada;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 
 import modelo.Autor;
 import modelo.Livro;
@@ -52,7 +56,7 @@ public class Fachada {
 		}
 		
 		
-		//MÉTODOS DE CADASTRO
+		//MÉTODOS DE CADASTRO  DE LIVROS E USUÁRIOS
 		
 		public static Livro cadastrarLivros(String titulo, ArrayList<String>nomes, int quantidade) throws Exception{
 			Livro l = repositorio.localizarLivro(titulo);
@@ -100,8 +104,39 @@ public class Fachada {
 			}
 		}
 		
+		// MÉTODOS RELACIONADOS AO EMPRÉSTIMO 
 		
-		// MÉTODOS DE LISTAGEM
+		public static Emprestimo fazerEmprestimo (String tituloDoLivro) throws Exception
+		{
+			Livro l = repositorio.localizarLivro(tituloDoLivro);
+			if (l == null)
+				throw new Exception ("Emprestimo não efetuado: Livro não encontrado!");
+			else if (l.getQuantidade() < 1)
+				throw new Exception ("Emprestimo não efetuado: Não há exemplares desponíveis para empréstimo!");
+			else
+			{
+				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyy");
+				LocalDate DataEmprestimo = LocalDate.now();
+				String StringDataEmprestimo = DataEmprestimo.format (formatador);			
+				LocalDate Datavencimento = DataEmprestimo.plusDays(10);
+				String StringVencimento = Datavencimento.format(formatador);
+				
+				Emprestimo emprestimo = new Emprestimo (idemprestimo++,StringDataEmprestimo,StringVencimento,0);
+				
+								
+			}
+				
+			
+			
+			
+			
+			
+		
+			return emprestimo;
+		}
+		
+		
+		// MÉTODOS DE LISTAGEM 
 		
 		public static ArrayList<Livro> listarLivros(){
 			return repositorio.getLivros();
