@@ -22,7 +22,7 @@ public class Fachada {
 				for(int j=0; j < nomes.size(); j++){
 					if(i!=j){
 						if(nomes.get(i) == nomes.get(j)){
-							throw new Exception ("Autores duplicados\n");
+							throw new Exception ("Erro: Autores duplicados:" + nomes.get(i)  + "\n");
 						}
 					}
 				}
