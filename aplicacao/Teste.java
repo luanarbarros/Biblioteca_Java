@@ -14,6 +14,7 @@ public class Teste {
 	public Teste(){
 		cadastrarLivro();
 		listar();
+		cadastrarUsuario();
 	}
 	
 	public void cadastrarLivro(){
@@ -84,13 +85,16 @@ public class Teste {
 				
 	}
 	
+	public void cadastrarUsuario(){
+		
+		Usuario usuario = new Usuario("Luana", "lu1234");
+		
+	}
+	
 //***********************MAIN***********************
 	public static void main(String[] args) 
-	{
-		
+	{	
 
-		
-		
 		new Teste();
 	}
 

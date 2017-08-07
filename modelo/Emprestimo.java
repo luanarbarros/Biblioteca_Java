@@ -59,6 +59,16 @@ public class Emprestimo {
 		this.usuario=usuario;
 	}
 	
+	public Livro getLivro ()
+	{
+		return livro;
+	}
+	
+	public void setLivro (Livro livro)
+	{
+		this.livro = livro;
+	}
+	
 	public String toString(){
 		return "Emprestimo numero ="+ id 
 				+ "\n Data de Emprestimo = " + dataemp

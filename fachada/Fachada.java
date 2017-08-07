@@ -3,7 +3,6 @@ package fachada;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 
 import modelo.Autor;
@@ -123,16 +122,19 @@ public class Fachada {
 				
 				Emprestimo emprestimo = new Emprestimo (idemprestimo++,StringDataEmprestimo,StringVencimento,0);
 				
-								
-			}
+				emprestimo.setUsuario(logado);
+				logado.adicionarEmprestimo(emprestimo);
 				
+				l.setQuantidade(l.getQuantidade()-1);
+				emprestimo.setLivro(l);
+				l.adicionarEmprestimo(emprestimo);
+				
+				repositorio.adicionarEmprestimo(emprestimo);
+				return emprestimo;
+				
+			}
+						
 			
-			
-			
-			
-			
-		
-			return emprestimo;
 		}
 		
 		

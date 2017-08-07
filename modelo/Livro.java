@@ -31,9 +31,13 @@ public class Livro {
 		return quantidade;
 	}
 	
-	public void setQuantidade (int q)
+	public void setQuantidade (int q) throws Exception
 	{
+		if (q < 0){
+			throw new Exception("A quantidade de livros deve ser maior ou igual a zero");
+		}
 		quantidade = q;
+		
 	}
 	
 	public ArrayList<Autor> getTodosAutores ()
