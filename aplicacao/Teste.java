@@ -14,7 +14,6 @@ public class Teste
 	
 	public Teste() throws Exception
 	{
-		
 		cadastrarLivro();
 		cadastrarUsuario();
 		simularLogin();

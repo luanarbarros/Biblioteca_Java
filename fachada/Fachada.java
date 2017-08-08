@@ -15,7 +15,7 @@ public class Fachada {
 
 		// ATRIBUTOS DA CLASSE
 		private static Repositorio repositorio = new Repositorio();
-		private static Usuario logado = null; // armazena o usuário logado
+		private static Usuario logado = null; 
 		private static int idemprestimo=0; 
 		
 		//MÉTODOS PARA FAZER LOGIN E LOGOFF
@@ -155,13 +155,12 @@ public class Fachada {
 			DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate hoje = LocalDate.now();
 			
-			hoje=hoje.plusDays(12);
+			//hoje=hoje.plusDays(12); // FRAUDANDO O DIA DE HOJE - A MULTA DEVE DAR 2 REAIS
 			
 			for(Usuario u: usuarios){
 				for(Emprestimo e: u.getEmprestimos()){
 					LocalDate datadev = LocalDate.parse(e.getDatadev(),formatador); 
 					diasDif=ChronoUnit.DAYS.between(datadev,hoje);
-					System.out.println("Dias dif = "+ diasDif);
 					if(diasDif>0){
 						e.setMulta(diasDif);
 					}
