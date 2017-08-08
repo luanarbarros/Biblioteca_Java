@@ -21,9 +21,12 @@ public class Menu {
 			Scanner teclado = new Scanner (System.in);
 			String nome = "";
 			String senha = "";
+			String titulo = "";
 			
 			String fragmento = "Sinais"; // APENAS PARA TESTE - APAGAR 
-			ArrayList<Livro> livrosListadosPorTitulo= new ArrayList<Livro> ();
+			ArrayList<Livro> livrosListados= new ArrayList<Livro> ();
+			
+			Emprestimo emprestimo;
 			
 			try
 			{
@@ -35,52 +38,81 @@ public class Menu {
 				System.out.println(e.getMessage());
 			}
 			
-			//listarTodasInfomacoes ();
-			exibirMenu();
+			do{
+				//listarTodasInfomacoes ();
+				exibirMenu();
+				
+				System.out.print("\n\nOpção: ");
+				opcao = teclado.nextInt();
+				teclado.nextLine();
+				
+				switch (opcao)
+				{
+					case 1:
+						System.out.print("Nome do usuario: ");
+						nome = teclado.nextLine();
+						System.out.println("\nSenha: ");
+						senha = teclado.nextLine();
+						try
+						{
+							Fachada.login(nome, senha);
+							//Fachada.login("Luana", "lu1234");
+						}
+						catch (Exception e)
+						{
+							System.out.println(e.getMessage());
+						}
+						break;
+					case 2:
+						try{
+						Fachada.logoff();
+						}
+						catch (Exception e)
+						{
+							System.out.println(e.getMessage());
+						}
+						break;
+					case 3:
+						imprimirListaLivros ();
+						break;
+					case 4:
+						System.out.print("Digite o título do livro: ");
+						fragmento = teclado.nextLine();
+						livrosListados = Fachada.listarLivrosPorFragmentoDoTitulo(fragmento);
+						for (Livro l: livrosListados)
+						{
+							System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
+						}
+						livrosListados = null;
+						break;
+					case 5:
+						System.out.print("Digite o nome do autor: ");
+						fragmento = teclado.nextLine();
+						livrosListados = Fachada.listarLivrosPorFragmentoDoAutor(fragmento);
+						for (Livro l: livrosListados)
+						{
+							System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
+						}
+						livrosListados = null;
+						break;
+					case 6:
+						imprimirEmpretimos();
+						break;
+					case 7:
+						System.out.print("Digite o título do livro: ");
+						titulo = teclado.nextLine();
+						try{
+							emprestimo = Fachada.fazerEmprestimo(titulo);
+							System.out.println("ID: " + emprestimo.getId() + "\nData de Devolução: " + emprestimo.getDatadev());
+						}
+						catch (Exception e){
+							System.out.println(e.getMessage());
+						}
+						titulo = null;
+						break;
+				}
 			
-			System.out.print("\n\n Opção: ");
-			opcao = teclado.nextInt();
-			teclado.nextLine();
-			switch (opcao)
-			{
-				case 1:
-					System.out.print("Nome do usuario: ");
-					nome = teclado.nextLine();
-					System.out.println("\nSenha: ");
-					senha = teclado.nextLine();
-					try
-					{
-						//Fachada.login(nome, senha);
-						 Fachada.login("Luana", "lu1234");
-					}
-					catch (Exception e)
-					{
-						System.out.println(e.getMessage());
-					}
-					break;
-				case 2:
-					try{
-					Fachada.logoff();
-					}
-					catch (Exception e)
-					{
-						System.out.println(e.getMessage());
-					}
-					break;
-				case 3:
-					imprimirListaLivros ();
-					break;
-				case 4:
-					System.out.print("Digite o título do livro: ");
-					fragmento = teclado.nextLine();
-					livrosListadosPorTitulo = Fachada.listarLivrosPorFragmentoDoTitulo(fragmento);
-					for (Livro l: livrosListadosPorTitulo)
-					{
-						System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
-					}
-					livrosListadosPorTitulo = null;
-			}
-			
+			}while (opcao!=0);
 	}
 	
 	public static void exibirMenu ()
@@ -127,7 +159,7 @@ public class Menu {
 	public static void precadastroUsuarios() throws Exception 
 	{
 		Fachada.cadastrarUsuario("Luana", "lu1234");
-		Fachada.cadastrarUsuario("Daltro\n", "D1234");
+		Fachada.cadastrarUsuario("Daltro", "D1234");
 	}
 	
 	public static void listarTodasInfomacoes()
@@ -159,18 +191,27 @@ public class Menu {
 		System.out.println(texto);
 		System.out.println("************************************************************");
 		
-		ArrayList<Emprestimo> listaEmprestimos = Fachada.listarEmprestimos();
-		texto = "Lista de Emprestimos \n";
-		if(listaEmprestimos.isEmpty()){
-			texto+= "Nao existem usuarios cadastrados \n";
-		}
-		else{
-			for(Emprestimo a: listaEmprestimos)
-				texto+= a.toString() + "\n";
-		}
-		System.out.println(texto);	
+		
 				
 	}
+	
+	public static void imprimirEmpretimos (){
+		
+		String texto;
+		ArrayList<Emprestimo> listaEmprestimos = Fachada.listarEmprestimos();
+		texto = "Lista de Emprestimos da Biblioteca\n";
+		if(listaEmprestimos.isEmpty()){
+			texto+= "Nao há empréstimos no momento\n";
+		}
+		else{
+			for(Emprestimo e: listaEmprestimos)
+				//texto+= e.getLivro().getTitulo() + "\n" + "ID: "+ e.getId();
+				texto+= e.toString() + "\n";
+		}
+		System.out.println(texto);	
+	}
+	
+	
 	
 	public static void imprimirListaLivros ()
 	{

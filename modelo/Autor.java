@@ -22,6 +22,10 @@ public class Autor {
 		return livros.size();
 	}
 	
+	public ArrayList<Livro> getLivros(){
+		return livros;
+	}
+	
 	public void adicionarLivro(Livro l){
 		livros.add(l);
 	}
@@ -33,7 +37,7 @@ public class Autor {
 	
 	public Livro localizarLivro(String titulo){
 		for(Livro l : livros){
-			if(l.getTitulo() == titulo)
+			if(l.getTitulo().equals(titulo))
 				return l;
 		}
 		return null;

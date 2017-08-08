@@ -77,7 +77,7 @@ public class Usuario {
 	public Emprestimo localizarEmprestimoPorLivro(String tituloDoLivro)
 	{
 		for(Emprestimo e : emprestimos){
-			if(e.getLivro().getTitulo() == tituloDoLivro)
+			if(e.getLivro().getTitulo().equals(tituloDoLivro))
 				return e;
 		}
 		return null;

@@ -27,7 +27,7 @@ public class Fachada {
 			{
 				throw new Exception ("Erro: Usuário não cadastrado");
 			}
-			else if (senha!=u.getSenha())
+			else if (!u.getSenha().equals(senha))
 			{
 				throw new Exception ("Senha incorreta");
 			}
@@ -71,7 +71,7 @@ public class Fachada {
 			for(int i=0; i < nomes.size(); i++){
 				for(int j=0; j < nomes.size(); j++){
 					if(i!=j){
-						if(nomes.get(i) == nomes.get(j)){
+						if(nomes.get(i).equals(nomes.get(j))){
 							throw new Exception ("Erro: Autores duplicados:" + nomes.get(i)  + "\n");
 						}
 					}
@@ -145,6 +145,11 @@ public class Fachada {
 			
 		}
 		
+	/*	public static void Devolucao (int id){
+			
+			
+		}*/
+		
 		// MÉTODO DE CALCULAR MULTA
 		
 		public static void calcularMulta(){
@@ -191,6 +196,21 @@ public class Fachada {
 		public static ArrayList<Autor> listarAutores(){
 			return repositorio.getAutores();
 		}
+		
+		public static ArrayList<Livro> listarLivrosPorFragmentoDoAutor (String fragmento)
+		{
+			ArrayList<Autor> autores = repositorio.getAutores();
+			ArrayList<Livro> livrosComFragmento = new ArrayList<Livro> ();
+			for (Autor a: autores){
+				if(a.getNome().contains(fragmento)){
+					for(Livro l: a.getLivros())
+						livrosComFragmento.add(l);
+				}
+			}
+			
+			return livrosComFragmento;
+		}
+		
 		
 		public static ArrayList<Emprestimo> listarEmprestimos(){
 			return repositorio.getEmprestimos();

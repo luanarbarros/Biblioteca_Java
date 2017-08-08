@@ -68,7 +68,7 @@ public class Repositorio {
 	
 	public Livro localizarLivro(String titulo){
 		for(Livro l : livros){
-			if(l.getTitulo() == titulo)
+			if(l.getTitulo().equals(titulo))
 				return l;
 		}
 		return null;
@@ -90,7 +90,7 @@ public class Repositorio {
 	
 	public Usuario localizarUsuario(String nome){
 		for(Usuario u: usuarios){
-			if(u.getNome() == nome)
+			if(u.getNome().equals(nome))
 				return u;
 		}
 		return null;
