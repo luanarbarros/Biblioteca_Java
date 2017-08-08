@@ -9,16 +9,24 @@ import modelo.Usuario;
 import modelo.Livro;
 import modelo.Emprestimo;
 
-public class Teste {
+public class Teste  
+{
 	
-	public Teste(){
+	public Teste() throws Exception
+	{
+		
 		cadastrarLivro();
-		listar();
 		cadastrarUsuario();
+		simularLogin();
+		simularEmprestimo();
+		simularLogoff();
+		Fachada.calcularMulta();
+		listar();	
 	}
 	
-	public void cadastrarLivro(){
-		try{
+	public void cadastrarLivro() throws Exception
+	{
+		
 			Livro l;
 			ArrayList<String> autores1 = new ArrayList<String>();
 			autores1.add("Oppenhein, A.V.");
@@ -44,21 +52,28 @@ public class Teste {
 			autores5.add("Coelho, A.A.R.");
 			autores5.add("Coelho, L.S.");
 			l = Fachada.cadastrarLivros("Identificacao de Sistemas Dinamicos Lineares", autores5, 2);
-			
-			ArrayList<String> autores6 = new ArrayList<String>();
-			autores6.add("Luana");
-			autores6.add("Luana");
-			l = Fachada.cadastrarLivros("The best person in the world: me", autores6, 2);
-			
-			
-				
-		}catch (Exception e){
-			
-			System.out.println(e.getMessage());
-		}
+						
 	}
 	
-	public void listar(){
+	public void simularLogin() throws Exception
+	{
+		Fachada.login("Luana", "lu1234");
+	}
+	
+	public void simularEmprestimo () throws Exception
+	{
+		Fachada.fazerEmprestimo("Sinais e Sistemas");
+		Fachada.fazerEmprestimo("Processamento de Sinais em Tempo Discreto");
+		//Fachada.fazerEmprestimo("Sinais e Sistemas");
+	}
+	
+	public void simularLogoff() throws Exception
+	{
+		Fachada.logoff();
+	}
+	
+	public void listar()
+	{
 		String texto;
 		ArrayList<Livro> listaLivros = Fachada.listarLivros();
 		texto = "Lista de Livros: \n";
@@ -70,7 +85,7 @@ public class Teste {
 				texto+= l.toString() + "\n";
 		}
 		System.out.println(texto);
-		System.out.println("****************************");
+		System.out.println("************************************************************");
 		
 		ArrayList<Autor> listaAutores = Fachada.listarAutores();
 		texto = "Lista de Autores \n";
@@ -82,20 +97,52 @@ public class Teste {
 				texto+= a.toString() + "\n";
 		}
 		System.out.println(texto);	
+		System.out.println("************************************************************");
+		
+		ArrayList<Usuario> listaUsuarios = Fachada.listarUsuarios();
+		texto = "Lista de Usuarios \n";
+		if(listaUsuarios.isEmpty()){
+			texto+= "Nao existem usuarios cadastrados \n";
+		}
+		else{
+			for(Usuario a: listaUsuarios)
+				texto+= a.toString() + "\n";
+		}
+		System.out.println(texto);
+		System.out.println("************************************************************");
+		
+		ArrayList<Emprestimo> listaEmprestimos = Fachada.listarEmprestimos();
+		texto = "Lista de Emprestimos \n";
+		if(listaEmprestimos.isEmpty()){
+			texto+= "Nao existem usuarios cadastrados \n";
+		}
+		else{
+			for(Emprestimo a: listaEmprestimos)
+				texto+= a.toString() + "\n";
+		}
+		System.out.println(texto);	
 				
 	}
 	
-	public void cadastrarUsuario(){
+	public void cadastrarUsuario() throws Exception 
+	{
 		
-		Usuario usuario = new Usuario("Luana", "lu1234");
+		Fachada.cadastrarUsuario("Luana", "lu1234");
+		Fachada.cadastrarUsuario("Daltro", "D1234");
 		
 	}
 	
 //***********************MAIN***********************
 	public static void main(String[] args) 
 	{	
-
-		new Teste();
+		try
+		{
+			new Teste();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

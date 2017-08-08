@@ -38,6 +38,10 @@ public class Usuario {
 		return prazo;
 	}
 	
+	public ArrayList<Emprestimo> getEmprestimos(){
+		return emprestimos;
+	}
+	
 	public void setNome  (String n)
 	{
 		nome = n;
@@ -70,11 +74,21 @@ public class Usuario {
 		return null;
 	}
 	
+	public Emprestimo localizarEmprestimoPorLivro(String tituloDoLivro)
+	{
+		for(Emprestimo e : emprestimos){
+			if(e.getLivro().getTitulo() == tituloDoLivro)
+				return e;
+		}
+		return null;
+	}
+	
+	
 	public String toString()
 	{
 		String text;
 		text = "nome= " + nome + " senha= " + senha + " prazo= " + prazo + " ";
-		text = text + "\nEmpestimos = ";
+		text = text + "\nIDs dos Empestimos = ";
 		if (emprestimos == null)
 		{
 			return text;
@@ -83,7 +97,7 @@ public class Usuario {
 		{
 			for (int i = 0; i < emprestimos.size(); i++)
 			{
-				text = text + emprestimos.get(i).getId() + " ";
+				text = text + emprestimos.get(i).getId() + ", ";
 			}
 			return text;
 		}

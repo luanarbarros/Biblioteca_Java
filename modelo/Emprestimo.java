@@ -70,11 +70,11 @@ public class Emprestimo {
 	}
 	
 	public String toString(){
-		return "Emprestimo numero ="+ id 
-				+ "\n Data de Emprestimo = " + dataemp
-				+ "\n Data de Devolução = " + datadev
-				+ "\n Usuario = " + usuario.getNome()
-				+ "\n Livro = " + livro.getTitulo()
-				+ "\n Multa = " + multa;
+		return "\nEmprestimo numero ="+ id 
+				+ "\nData de Emprestimo = " + dataemp
+				+ "\nData de Devolução = " + datadev
+				+ "\nUsuario = " + usuario.getNome()
+				+ "\nLivro = " + livro.getTitulo()
+				+ "\nMulta = " + multa;
 	}
 }

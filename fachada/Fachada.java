@@ -2,6 +2,7 @@ package fachada;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 
@@ -25,6 +26,10 @@ public class Fachada {
 			if (u == null)
 			{
 				throw new Exception ("Erro: Usuário não cadastrado");
+			}
+			else if (senha!=u.getSenha())
+			{
+				throw new Exception ("Senha incorreta");
 			}
 			else if (logado != null)
 			{
@@ -93,7 +98,7 @@ public class Fachada {
 		public static Usuario cadastrarUsuario(String nome, String senha) throws Exception{
 			Usuario u = repositorio.localizarUsuario(nome);
 			if(u!=null){
-				throw new Exception ("Usuario ja cadastrado");
+				throw new Exception ("Erro: Usuario ja cadastrado");
 			}
 			else
 			{
@@ -108,19 +113,22 @@ public class Fachada {
 		public static Emprestimo fazerEmprestimo (String tituloDoLivro) throws Exception
 		{
 			Livro l = repositorio.localizarLivro(tituloDoLivro);
+						
 			if (l == null)
 				throw new Exception ("Emprestimo não efetuado: Livro não encontrado!");
+			else if(logado.localizarEmprestimoPorLivro(tituloDoLivro)!=null)
+				throw new Exception ("Voce ja possui uma unidade emprestada deste livro");				
 			else if (l.getQuantidade() < 1)
 				throw new Exception ("Emprestimo não efetuado: Não há exemplares desponíveis para empréstimo!");
 			else
 			{
-				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyy");
+				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate DataEmprestimo = LocalDate.now();
 				String StringDataEmprestimo = DataEmprestimo.format (formatador);			
 				LocalDate Datavencimento = DataEmprestimo.plusDays(10);
 				String StringVencimento = Datavencimento.format(formatador);
 				
-				Emprestimo emprestimo = new Emprestimo (idemprestimo++,StringDataEmprestimo,StringVencimento,0);
+				Emprestimo emprestimo = new Emprestimo (++idemprestimo,StringDataEmprestimo,StringVencimento,0);
 				
 				emprestimo.setUsuario(logado);
 				logado.adicionarEmprestimo(emprestimo);
@@ -135,6 +143,30 @@ public class Fachada {
 			}
 						
 			
+		}
+		
+		// MÉTODO DE CALCULAR MULTA
+		
+		public static void calcularMulta(){
+			
+			ArrayList<Usuario> usuarios = listarUsuarios();
+			long diasDif;
+			
+			DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate hoje = LocalDate.now();
+			
+			hoje=hoje.plusDays(12);
+			
+			for(Usuario u: usuarios){
+				for(Emprestimo e: u.getEmprestimos()){
+					LocalDate datadev = LocalDate.parse(e.getDatadev(),formatador); 
+					diasDif=ChronoUnit.DAYS.between(datadev,hoje);
+					System.out.println("Dias dif = "+ diasDif);
+					if(diasDif>0){
+						e.setMulta(diasDif);
+					}
+				}
+			}
 		}
 		
 		
@@ -152,7 +184,7 @@ public class Fachada {
 			return repositorio.getEmprestimos();
 		}
 		
-		public static ArrayList<Usuario> listarUsuario(){
+		public static ArrayList<Usuario> listarUsuarios(){
 			return repositorio.getUsuarios();
 		}
 }
