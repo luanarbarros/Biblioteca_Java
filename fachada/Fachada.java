@@ -175,6 +175,19 @@ public class Fachada {
 			return repositorio.getLivros();
 		}
 		
+		public static ArrayList<Livro> listarLivrosPorFragmentoDoTitulo (String fragmento)
+		{
+			ArrayList<Livro> livros = repositorio.getLivros();
+			ArrayList<Livro> livrosComFragmento = new ArrayList<Livro> ();
+			for (Livro l: livros)
+			{
+				if (l.getTitulo().contains(fragmento))
+					livrosComFragmento.add(l);
+			}
+			
+			return livrosComFragmento;
+		}
+		
 		public static ArrayList<Autor> listarAutores(){
 			return repositorio.getAutores();
 		}

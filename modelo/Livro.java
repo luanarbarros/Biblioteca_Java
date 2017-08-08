@@ -45,6 +45,16 @@ public class Livro {
 		return autores;
 	}
 	
+	public String getNomeDosAutores()
+	{
+		String nomeDosAutores = "";
+		for (Autor a: autores)
+		{
+			nomeDosAutores += a.getNome() + ", "; 
+		}
+		return nomeDosAutores;
+	}
+	
 	public ArrayList<Emprestimo> getTodosEmprestimos ()
 	{
 		return emprestimos;

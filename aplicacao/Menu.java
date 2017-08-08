@@ -1,6 +1,8 @@
 package aplicacao;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,7 +19,11 @@ public class Menu {
 	{
 			int opcao;
 			Scanner teclado = new Scanner (System.in);
-			String nome, senha;
+			String nome = "";
+			String senha = "";
+			
+			String fragmento = "Sinais"; // APENAS PARA TESTE - APAGAR 
+			ArrayList<Livro> livrosListadosPorTitulo= new ArrayList<Livro> ();
 			
 			try
 			{
@@ -29,11 +35,12 @@ public class Menu {
 				System.out.println(e.getMessage());
 			}
 			
-			
+			//listarTodasInfomacoes ();
 			exibirMenu();
 			
 			System.out.print("\n\n Opção: ");
 			opcao = teclado.nextInt();
+			teclado.nextLine();
 			switch (opcao)
 			{
 				case 1:
@@ -43,7 +50,8 @@ public class Menu {
 					senha = teclado.nextLine();
 					try
 					{
-						Fachada.login(nome, senha);
+						//Fachada.login(nome, senha);
+						 Fachada.login("Luana", "lu1234");
 					}
 					catch (Exception e)
 					{
@@ -51,7 +59,26 @@ public class Menu {
 					}
 					break;
 				case 2:
-						
+					try{
+					Fachada.logoff();
+					}
+					catch (Exception e)
+					{
+						System.out.println(e.getMessage());
+					}
+					break;
+				case 3:
+					imprimirListaLivros ();
+					break;
+				case 4:
+					System.out.print("Digite o título do livro: ");
+					fragmento = teclado.nextLine();
+					livrosListadosPorTitulo = Fachada.listarLivrosPorFragmentoDoTitulo(fragmento);
+					for (Livro l: livrosListadosPorTitulo)
+					{
+						System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
+					}
+					livrosListadosPorTitulo = null;
 			}
 			
 	}
@@ -100,7 +127,64 @@ public class Menu {
 	public static void precadastroUsuarios() throws Exception 
 	{
 		Fachada.cadastrarUsuario("Luana", "lu1234");
-		Fachada.cadastrarUsuario("Daltro", "D1234");
+		Fachada.cadastrarUsuario("Daltro\n", "D1234");
+	}
+	
+	public static void listarTodasInfomacoes()
+	{
+		imprimirListaLivros ();
+		System.out.println("************************************************************");
+		String texto;
+		ArrayList<Autor> listaAutores = Fachada.listarAutores();
+		texto = "Lista de Autores \n";
+		if(listaAutores.isEmpty()){
+			texto+= "Nao existem autores cadastrados \n";
+		}
+		else{
+			for(Autor a: listaAutores)
+				texto+= a.toString() + "\n";
+		}
+		System.out.println(texto);	
+		System.out.println("************************************************************");
+		
+		ArrayList<Usuario> listaUsuarios = Fachada.listarUsuarios();
+		texto = "Lista de Usuarios \n";
+		if(listaUsuarios.isEmpty()){
+			texto+= "Nao existem usuarios cadastrados \n";
+		}
+		else{
+			for(Usuario a: listaUsuarios)
+				texto+= a.toString() + "\n";
+		}
+		System.out.println(texto);
+		System.out.println("************************************************************");
+		
+		ArrayList<Emprestimo> listaEmprestimos = Fachada.listarEmprestimos();
+		texto = "Lista de Emprestimos \n";
+		if(listaEmprestimos.isEmpty()){
+			texto+= "Nao existem usuarios cadastrados \n";
+		}
+		else{
+			for(Emprestimo a: listaEmprestimos)
+				texto+= a.toString() + "\n";
+		}
+		System.out.println(texto);	
+				
+	}
+	
+	public static void imprimirListaLivros ()
+	{
+		String texto;
+		ArrayList<Livro> listaLivros = Fachada.listarLivros();
+		texto = "Lista de Livros: \n";
+		if(listaLivros.isEmpty()){
+			texto+= "Nao existem livros cadastrados \n";
+		}
+		else{
+			for(Livro l: listaLivros)
+				texto+= l.toString() + "\n";
+		}
+		System.out.println(texto);
 	}
 
 }
