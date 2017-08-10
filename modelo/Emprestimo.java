@@ -42,7 +42,7 @@ public class Emprestimo {
 	public void setDatadev(String datadev){
 		this.datadev=datadev;	
 	}
-	
+
 	public double getMulta(){
 		return multa;
 	}

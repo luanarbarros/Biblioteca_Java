@@ -4,10 +4,15 @@ public class ListaDeCoisasDevemSerFeitas {
 	
 	//Quando um usuário estiver logado, a opção de logar não deve estar disponível no menu;
 	//Só logoff;
-	//o login é feito com o email ou com o nome?
-	// Ignoramos prazo pois nao sabíamos como usar
-   //Se ligar nos dinheiros das multas
+	
+	
+	
+   
 	// Converter todas as strings para mínusculo na hora de salvar e na hora de buscar;
-	// Quando uma referência a um objeto deixa de existir? 
+	
+	// PRAZO EH SEMPRE 10
+	//DATA DE DEV SO EM PREENCHIDA NA DEVOLUCAO
+	// SO CALCULA A MULTA NA DEVOLUCAO
+	// COMPARA COM OS METODOS DO FACEBOOK
 
 }

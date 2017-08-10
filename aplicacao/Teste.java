@@ -61,8 +61,8 @@ public class Teste
 	
 	public void simularEmprestimo () throws Exception
 	{
-		Fachada.fazerEmprestimo("Sinais e Sistemas");
-		Fachada.fazerEmprestimo("Processamento de Sinais em Tempo Discreto");
+		Fachada.criarEmprestimo("Sinais e Sistemas");
+		Fachada.criarEmprestimo("Processamento de Sinais em Tempo Discreto");
 		//Fachada.fazerEmprestimo("Sinais e Sistemas");
 	}
 	

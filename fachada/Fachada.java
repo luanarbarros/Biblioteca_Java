@@ -102,7 +102,7 @@ public class Fachada {
 			}
 			else
 			{
-				u=new Usuario(nome, senha);
+				u=new Usuario(nome, senha, 10);
 				repositorio.adicionarUsuario(u);
 				return u;
 			}
@@ -110,13 +110,13 @@ public class Fachada {
 		
 		// MÉTODOS RELACIONADOS AO EMPRÉSTIMO 
 		
-		public static Emprestimo fazerEmprestimo (String tituloDoLivro) throws Exception
+		public static Emprestimo criarEmprestimo (String titulo) throws Exception
 		{
-			Livro l = repositorio.localizarLivro(tituloDoLivro);
+			Livro l = repositorio.localizarLivro(titulo);
 						
 			if (l == null)
 				throw new Exception ("Emprestimo não efetuado: Livro não encontrado!");
-			else if(logado.localizarEmprestimoPorLivro(tituloDoLivro)!=null)
+			else if(logado.localizarEmprestimoPorLivro(titulo)!=null)
 				throw new Exception ("Voce ja possui uma unidade emprestada deste livro");				
 			else if (l.getQuantidade() < 1)
 				throw new Exception ("Emprestimo não efetuado: Não há exemplares desponíveis para empréstimo!");
@@ -125,8 +125,8 @@ public class Fachada {
 				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate DataEmprestimo = LocalDate.now();
 				String StringDataEmprestimo = DataEmprestimo.format (formatador);			
-				LocalDate Datavencimento = DataEmprestimo.plusDays(10);
-				String StringVencimento = Datavencimento.format(formatador);
+				String StringVencimento = "";
+				
 				
 				Emprestimo emprestimo = new Emprestimo (++idemprestimo,StringDataEmprestimo,StringVencimento,0);
 				
@@ -144,11 +144,26 @@ public class Fachada {
 						
 			
 		}
+		/*
+		public static Emprestimo criarDevolucao(int id) throws Exception
+		{
+			Emprestimo emprestimo = repositorio.localizarEmprestimo(id);
+			if (emprestimo == null)
+				throw new Exception ("Empréstrimo não encontrado!");
+			else
+			{
+				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate DataEmprestimo = LocalDate.now();
+				String StringDataEmprestimo = DataEmprestimo.format (formatador);			
+				LocalDate Datavencimento = DataEmprestimo.plusDays(10);
+				String StringVencimento = Datavencimento.format(formatador);
+			}
 		
-	/*	public static void Devolucao (int id){
-			
 			
 		}*/
+		
+		
+		
 		
 		// MÉTODO DE CALCULAR MULTA
 		
@@ -207,8 +222,10 @@ public class Fachada {
 						livrosComFragmento.add(l);
 				}
 			}
-			
-			return livrosComFragmento;
+			if (livrosComFragmento.isEmpty())
+				return null;
+			else
+				return livrosComFragmento;
 		}
 		
 		

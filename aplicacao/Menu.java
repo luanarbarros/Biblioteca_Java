@@ -3,6 +3,8 @@ package aplicacao;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -89,9 +91,12 @@ public class Menu {
 						System.out.print("Digite o nome do autor: ");
 						fragmento = teclado.nextLine();
 						livrosListados = Fachada.listarLivrosPorFragmentoDoAutor(fragmento);
-						for (Livro l: livrosListados)
+						if (livrosListados == null)
+							System.out.println("\nNenhum livro encontrado!\n");
+						else
 						{
-							System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
+							for (Livro l: livrosListados)
+								System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
 						}
 						livrosListados = null;
 						break;
@@ -102,8 +107,13 @@ public class Menu {
 						System.out.print("Digite o título do livro: ");
 						titulo = teclado.nextLine();
 						try{
-							emprestimo = Fachada.fazerEmprestimo(titulo);
-							System.out.println("ID: " + emprestimo.getId() + "\nData de Devolução: " + emprestimo.getDatadev());
+							DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+							emprestimo = Fachada.criarEmprestimo(titulo);
+							LocalDate dataemp = LocalDate.parse(emprestimo.getDataemp(),formatador);
+							LocalDate DataVencimento = dataemp.plusDays(Fachada.getLogado().getPrazo());
+							String StringProvavelVencimento = DataVencimento.format(formatador);
+							 
+							System.out.println("ID: " + emprestimo.getId() + "\nProvavel data de Devolução: " + StringProvavelVencimento );
 						}
 						catch (Exception e){
 							System.out.println(e.getMessage());
