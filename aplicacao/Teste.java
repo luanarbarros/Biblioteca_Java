@@ -19,7 +19,7 @@ public class Teste
 		simularLogin();
 		simularEmprestimo();
 		simularLogoff();
-		Fachada.calcularMulta();
+		//Fachada.calcularMulta();
 		listar();	
 	}
 	

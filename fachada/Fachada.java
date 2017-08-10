@@ -144,49 +144,35 @@ public class Fachada {
 						
 			
 		}
-		/*
+		
 		public static Emprestimo criarDevolucao(int id) throws Exception
 		{
+			long diasDif;
 			Emprestimo emprestimo = repositorio.localizarEmprestimo(id);
+			
 			if (emprestimo == null)
 				throw new Exception ("Empréstrimo não encontrado!");
 			else
 			{
 				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate DataEmprestimo = LocalDate.now();
-				String StringDataEmprestimo = DataEmprestimo.format (formatador);			
-				LocalDate Datavencimento = DataEmprestimo.plusDays(10);
-				String StringVencimento = Datavencimento.format(formatador);
-			}
-		
-			
-		}*/
-		
-		
-		
-		
-		// MÉTODO DE CALCULAR MULTA
-		
-		public static void calcularMulta(){
-			
-			ArrayList<Usuario> usuarios = listarUsuarios();
-			long diasDif;
-			
-			DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate hoje = LocalDate.now();
-			
-			//hoje=hoje.plusDays(12); // FRAUDANDO O DIA DE HOJE - A MULTA DEVE DAR 2 REAIS
-			
-			for(Usuario u: usuarios){
-				for(Emprestimo e: u.getEmprestimos()){
-					LocalDate datadev = LocalDate.parse(e.getDatadev(),formatador); 
-					diasDif=ChronoUnit.DAYS.between(datadev,hoje);
-					if(diasDif>0){
-						e.setMulta(diasDif);
-					}
-				}
-			}
+				LocalDate datadev = LocalDate.now();
+				
+				//datadev=datadev.plusDays(12); // ALTERANDO O DIA DE HOJE - A MULTA DEVE DÁ 2 REAIS
+				
+				String StringDataEmprestimo = datadev.format (formatador);	
+				LocalDate dataemp = LocalDate.parse(emprestimo.getDataemp(),formatador); 
+				emprestimo.setDatadev(StringDataEmprestimo);
+				diasDif=ChronoUnit.DAYS.between(dataemp.plusDays(emprestimo.getUsuario().getPrazo()),datadev);
+				
+				if (diasDif > 0)
+					emprestimo.setMulta(diasDif);
+				else
+					emprestimo.setMulta (0);
+				
+				return emprestimo;
+			}			
 		}
+		
 		
 		
 		// MÉTODOS DE LISTAGEM 
@@ -204,8 +190,10 @@ public class Fachada {
 				if (l.getTitulo().contains(fragmento))
 					livrosComFragmento.add(l);
 			}
-			
-			return livrosComFragmento;
+			if (livrosComFragmento.isEmpty())
+				return null;
+			else
+				return livrosComFragmento;
 		}
 		
 		public static ArrayList<Autor> listarAutores(){

@@ -20,6 +20,7 @@ public class Menu {
 	public static void main(String[] args)
 	{
 			int opcao;
+			int id;
 			Scanner teclado = new Scanner (System.in);
 			String nome = "";
 			String senha = "";
@@ -45,24 +46,38 @@ public class Menu {
 				exibirMenu();
 				
 				System.out.print("\n\nOpção: ");
-				opcao = teclado.nextInt();
-				teclado.nextLine();
+				try
+				{
+					opcao = teclado.nextInt();
+					teclado.nextLine();
+				}
+				catch (Exception e)
+				{
+					opcao = teclado.nextInt();
+					teclado.nextLine();
+				}
 				
 				switch (opcao)
 				{
 					case 1:
-						System.out.print("Nome do usuario: ");
-						nome = teclado.nextLine();
-						System.out.println("\nSenha: ");
-						senha = teclado.nextLine();
-						try
+						if (Fachada.getLogado() == null)
 						{
-							Fachada.login(nome, senha);
-							//Fachada.login("Luana", "lu1234");
+							System.out.print("Nome do usuario: ");
+							nome = teclado.nextLine();
+							System.out.println("\nSenha: ");
+							senha = teclado.nextLine();
+							try
+							{
+								Fachada.login(nome, senha);
+							}
+							catch (Exception e)
+							{
+								System.out.println(e.getMessage());
+							}
 						}
-						catch (Exception e)
+						else
 						{
-							System.out.println(e.getMessage());
+							System.out.println("\nJá existe um usuário logado!\n");
 						}
 						break;
 					case 2:
@@ -81,9 +96,12 @@ public class Menu {
 						System.out.print("Digite o título do livro: ");
 						fragmento = teclado.nextLine();
 						livrosListados = Fachada.listarLivrosPorFragmentoDoTitulo(fragmento);
-						for (Livro l: livrosListados)
+						if (livrosListados == null)
+							System.out.println("\nNenhum livro encontrado!\n");
+						else
 						{
-							System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
+							for (Livro l: livrosListados)
+								System.out.println("\nTitulo: " + l.getTitulo() + "\n" + l.getNomeDosAutores());
 						}
 						livrosListados = null;
 						break;
@@ -119,6 +137,22 @@ public class Menu {
 							System.out.println(e.getMessage());
 						}
 						titulo = null;
+						break;
+					case 8:
+						System.out.println("Digite o ID do empréstimo: ");
+						id = teclado.nextInt();
+						teclado.nextLine();
+						try
+						{
+							Fachada.criarDevolucao(id); 
+						}
+						catch (Exception e)
+						{
+							System.out.println(e.getMessage());
+						}
+						break;
+					case 9:
+						
 						break;
 				}
 			
