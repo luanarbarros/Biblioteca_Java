@@ -24,6 +24,7 @@ public class Repositorio {
 	}
 	
 	public Autor localizarAutor(String nome){
+		nome = nome.toUpperCase();
 		for(Autor a : autores){
 			if(a.getNome().equals(nome))
 				return a;
@@ -67,6 +68,7 @@ public class Repositorio {
 	}
 	
 	public Livro localizarLivro(String titulo){
+		titulo = titulo.toUpperCase();
 		for(Livro l : livros){
 			if(l.getTitulo().equals(titulo))
 				return l;

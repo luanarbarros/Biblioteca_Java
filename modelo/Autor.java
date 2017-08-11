@@ -8,6 +8,7 @@ public class Autor {
 
 
 	public Autor (String nome){
+		nome = nome.toUpperCase();
 		this.nome = nome;
 	}
 	
@@ -15,6 +16,7 @@ public class Autor {
 		return nome;
 	}
 	public void setNome(String nome) {
+		nome = nome.toUpperCase();
 		this.nome = nome;
 	}
 	
