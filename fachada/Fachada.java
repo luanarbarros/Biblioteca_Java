@@ -152,11 +152,14 @@ public class Fachada {
 			
 			if (emprestimo == null)
 				throw new Exception ("Empréstrimo não encontrado!");
+			else if  ( !( emprestimo.getUsuario().getNome().equals(logado.getNome())) )
+			{
+				throw new Exception ("Esse emprestimo pertence a outro usuário!\n");
+			}
 			else
 			{
 				DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate datadev = LocalDate.now();
-				
 				//datadev=datadev.plusDays(12); // ALTERANDO O DIA DE HOJE - A MULTA DEVE DÁ 2 REAIS
 				
 				String StringDataEmprestimo = datadev.format (formatador);	

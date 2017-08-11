@@ -1,8 +1,6 @@
 package aplicacao;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -46,19 +44,13 @@ public class Menu {
 				exibirMenu();
 				
 				System.out.print("\n\nOpção: ");
-				try
-				{
-					opcao = teclado.nextInt();
-					teclado.nextLine();
-				}
-				catch (Exception e)
-				{
-					opcao = teclado.nextInt();
-					teclado.nextLine();
-				}
-				
+				opcao = teclado.nextInt();
+				teclado.nextLine();
 				switch (opcao)
 				{
+					case 0:
+						System.out.println("Bye!\n");
+						break;
 					case 1:
 						if (Fachada.getLogado() == null)
 						{
@@ -119,41 +111,77 @@ public class Menu {
 						livrosListados = null;
 						break;
 					case 6:
-						imprimirEmpretimos();
+						imprimirEmprestimos();
 						break;
 					case 7:
-						System.out.print("Digite o título do livro: ");
-						titulo = teclado.nextLine();
-						try{
-							DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-							emprestimo = Fachada.criarEmprestimo(titulo);
-							LocalDate dataemp = LocalDate.parse(emprestimo.getDataemp(),formatador);
-							LocalDate DataVencimento = dataemp.plusDays(Fachada.getLogado().getPrazo());
-							String StringProvavelVencimento = DataVencimento.format(formatador);
-							 
-							System.out.println("ID: " + emprestimo.getId() + "\nProvavel data de Devolução: " + StringProvavelVencimento );
+						if (Fachada.getLogado() != null)
+						{
+							System.out.print("Digite o título do livro: ");
+							titulo = teclado.nextLine();
+							try{
+								DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+								emprestimo = Fachada.criarEmprestimo(titulo);
+								LocalDate dataemp = LocalDate.parse(emprestimo.getDataemp(),formatador);
+								LocalDate DataVencimento = dataemp.plusDays(Fachada.getLogado().getPrazo());
+								String StringProvavelVencimento = DataVencimento.format(formatador);
+								 
+								System.out.println("ID: " + emprestimo.getId() + "\nProvavel data de Devolução: " + StringProvavelVencimento );
+							}
+							catch (Exception e){
+								System.out.println(e.getMessage());
+							}
+							titulo = null;
+							emprestimo = null;
 						}
-						catch (Exception e){
-							System.out.println(e.getMessage());
+						else 
+						{
+							System.out.println("Não há usuários logados\nLogue para desbloquear essa opção!\n");
 						}
-						titulo = null;
 						break;
 					case 8:
-						System.out.println("Digite o ID do empréstimo: ");
-						id = teclado.nextInt();
-						teclado.nextLine();
-						try
+						if (Fachada.getLogado() != null)
 						{
-							Fachada.criarDevolucao(id); 
+							System.out.println("Digite o ID do empréstimo: ");
+							id = teclado.nextInt();
+							teclado.nextLine();
+							try
+							{
+								emprestimo = Fachada.criarDevolucao(id); 
+								System.out.println("ID: " + emprestimo.getId() + "\nMulta: " + emprestimo.getMulta() );
+							}
+							catch (Exception e)
+							{
+								System.out.println(e.getMessage());
+							}
+							emprestimo = null;
 						}
-						catch (Exception e)
-						{
-							System.out.println(e.getMessage());
+						else {
+							System.out.println("Não há usuários logados\nLogue para desbloquear essa opção!\n");
 						}
 						break;
 					case 9:
-						
+						if (Fachada.getLogado() != null)
+						{
+							ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo> ();
+							emprestimos = Fachada.getLogado().getEmprestimos();
+							if (!emprestimos.isEmpty())
+							{	
+								for (Emprestimo e: emprestimos)
+								{
+									System.out.println(e.toString() + "\n\n");
+								}
+							}
+							else {
+								System.out.println(Fachada.getLogado().getNome() +  " não possui emprestimos!\n");
+							}
+						}
+						else 
+						{
+							System.out.println("Não há usuários logados\nLogue para desbloquear essa opção!\n");
+						}
 						break;
+					default:
+						System.out.println("Não é uma opção válida");
 				}
 			
 			}while (opcao!=0);
@@ -164,7 +192,7 @@ public class Menu {
 		String text1 = "\n\n1. login\n2. Logoff\n3. Listar Livros\n4. Buscar livro por titulo\n5. Buscar livro por autor\n6. Listar emprestimos\n";
 		String text2 = text1 + "7. Emprestimo\n8. Devolução\n9. Listar meus emprestimos";
 		if (Fachada.getLogado() == null)
-			System.out.println(text1);
+			System.out.println(text1 + "\n0. sair");
 		else
 			System.out.println(text2);
 	}
@@ -239,7 +267,7 @@ public class Menu {
 				
 	}
 	
-	public static void imprimirEmpretimos (){
+	public static void imprimirEmprestimos (){
 		
 		String texto;
 		ArrayList<Emprestimo> listaEmprestimos = Fachada.listarEmprestimos();
