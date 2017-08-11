@@ -182,21 +182,21 @@ public class TelaPrincipal {
 		mntmListarEmp = new JMenuItem("Listar Emprestimos");
 		mntmListarEmp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Fachada.logoff();
-				JOptionPane.showMessageDialog(null,"Até breve");
+				TelaListarEmp tela = new TelaListarEmp();
+				tela.setVisible(true);
 			}
 		});
 		mnBuscar.add(mntmListarEmp);
 
 		/*************************************************************************************/
-		mnUsuarios = new JMenu("Usuarios");
+		mnUsuarios = new JMenu("Usuario");
 		menuBar.add(mnUsuarios);
 				
 		mntmEmprestimos = new JMenuItem("Emprestimos");
 		mntmEmprestimos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Fachada.logoff();
-				JOptionPane.showMessageDialog(null,"Até breve");
+				TelaFazerEmp tela = new TelaFazerEmp();
+				tela.setVisible(true);
 			}
 		});
 		mnUsuarios.add(mntmEmprestimos);
@@ -204,8 +204,8 @@ public class TelaPrincipal {
 		mntmDevolucao = new JMenuItem("Devolucao");
 		mntmDevolucao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Fachada.logoff();
-				JOptionPane.showMessageDialog(null,"Até breve");
+				TelaFazerDev tela = new TelaFazerDev();
+				tela.setVisible(true);
 			}
 		});
 		mnUsuarios.add(mntmDevolucao);
@@ -213,80 +213,11 @@ public class TelaPrincipal {
 		mntmListarMeusEmp = new JMenuItem("Listar Meus Emprestimos");
 		mntmListarMeusEmp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Fachada.logoff();
-				JOptionPane.showMessageDialog(null,"Até breve");
+				TelaListarMeusEmp tela = new TelaListarMeusEmp();
+				tela.setVisible(true);
 			}
 		});
 		mnUsuarios.add(mntmListarMeusEmp);
 		/*************************************************************************************/
-/*		mnCadastrar = new JMenu("Pessoas");
-		menuBar.add(mnCadastrar);
-
-		mntmAluno = new JMenuItem("Cadastrar Aluno");
-		mntmAluno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			//	TelaCadastroAluno al = new TelaCadastroAluno();
-			//	al.setVisible(true);
-			}
-		});
-		mnCadastrar.add(mntmAluno);
-
-		JMenuItem mntmPessoas = new JMenuItem("Listar");
-		mnCadastrar.add(mntmPessoas);
-		mntmPessoas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			//	TelaListarPessoa tela = new TelaListarPessoa();
-			//	tela.setVisible(true);
-			}
-		});*/
-		
-		/*************************************************************************************/
-		/*
-		mnListar = new JMenu("Mensagens");
-		menuBar.add(mnListar);
-
-		mntmMsg_1 = new JMenuItem("Enviar");
-		mnListar.add(mntmMsg_1);
-		mntmMsg_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			//	TelaEnviarMsg tela = new TelaEnviarMsg();
-			//	tela.setVisible(true);
-			}
-		});
-
-		mntmMensagem = new JMenuItem("Excluir");
-		mntmMensagem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String id = JOptionPane.showInputDialog("Id:");
-				try {
-					//Fachada.excluirMensagem(Integer.parseInt(id));
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null,"numero invalido");
-				}
-
-
-			}
-		});
-		mnListar.add(mntmMensagem);
-		
-		mntmCxSaida = new JMenuItem("Caixa de Entrada/Saida");
-		mntmCxSaida.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			//	TelaListarCaixa tela = new TelaListarCaixa();
-			//	tela.setVisible(true);
-			}
-		});
-		mnListar.add(mntmCxSaida);
-
-
-		mntmEspionar = new JMenuItem("Espionar");
-		mntmEspionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			//	TelaEspionagem tela = new TelaEspionagem();
-			//	tela.setVisible(true);
-			}
-		});
-		mnListar.add(mntmEspionar);
-		*/
 	}
 }
