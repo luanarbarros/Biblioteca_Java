@@ -22,15 +22,8 @@ public class TelaPrincipal {
 	private JMenu mnLog;
 	private JMenuItem mntmLogoff;
 	private JMenuItem mntmLogin;
-	//private JMenu mnCadastrar;
-	//private JMenuItem mntmAluno;
-	//private JMenu mnListar;
-	//private JMenuItem mntmEspionar;
-	//private JMenuItem mntmCxSaida;
-//	private JMenuItem mntmLer;
-	//private JMenuItem mntmMensagem;
-	//private JMenuItem mntmMsg_1;
 	private JMenuItem mnBuscar;
+	private JMenuItem mntmBuscarTodosLivros;
 	private JMenuItem mntmBuscarLivro;
 	private JMenuItem mntmBuscarAutor;
 	private JMenuItem mntmListarEmp;
@@ -104,11 +97,7 @@ public class TelaPrincipal {
 					
 					Fachada.cadastrarUsuario("Luana", "lu1234");
 					Fachada.cadastrarUsuario("Daltro", "D1234");
-					
-					//Fachada.cadastrarPessoa("joao","joao@", "1");
-					//Fachada.cadastrarPessoa("maria","maria@", "1");
-					//Fachada.cadastrarPessoa("jose","jose@", "1");	
-					//Fachada.cadastrarPessoa("admin","admin@", "1");
+
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "cadastro incorreto !");
 				}
@@ -159,6 +148,15 @@ public class TelaPrincipal {
 		
 		mnBuscar = new JMenu("Buscar");
 		menuBar.add(mnBuscar);
+		
+		mntmBuscarTodosLivros = new JMenuItem("Todos os Livros");
+		mntmBuscarTodosLivros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaListarTodosLivros tela = new TelaListarTodosLivros();
+				tela.setVisible(true);
+			}
+		});
+		mnBuscar.add(mntmBuscarTodosLivros);
 				
 		mntmBuscarLivro = new JMenuItem("Buscar por Livro");
 		mntmBuscarLivro.addActionListener(new ActionListener() {
