@@ -163,8 +163,8 @@ public class TelaPrincipal {
 		mntmBuscarLivro = new JMenuItem("Buscar por Livro");
 		mntmBuscarLivro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Fachada.logoff();
-				JOptionPane.showMessageDialog(null,"Até breve");
+				TelaListarLivros tela = new TelaListarLivros();
+				tela.setVisible(true);
 			}
 		});
 		mnBuscar.add(mntmBuscarLivro);
@@ -172,9 +172,10 @@ public class TelaPrincipal {
 		mntmBuscarAutor = new JMenuItem("Buscar por Autor");
 		mntmBuscarAutor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Fachada.logoff();
-				JOptionPane.showMessageDialog(null,"Até breve");
+				TelaListarAutores tela = new TelaListarAutores();
+				tela.setVisible(true);
 			}
+			
 		});
 		mnBuscar.add(mntmBuscarAutor);
 		
