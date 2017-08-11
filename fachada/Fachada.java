@@ -116,7 +116,7 @@ public class Fachada {
 						
 			if (l == null)
 				throw new Exception ("Emprestimo não efetuado: Livro não encontrado!");
-			else if(logado.localizarEmprestimoPorLivro(titulo)!=null)
+			else if( (logado.localizarEmprestimoPorLivro(titulo)!=null) && (logado.localizarEmprestimoPorLivro(titulo).getDatadev().equals("")) )
 				throw new Exception ("Voce ja possui uma unidade emprestada deste livro");				
 			else if (l.getQuantidade() < 1)
 				throw new Exception ("Emprestimo não efetuado: Não há exemplares desponíveis para empréstimo!");
