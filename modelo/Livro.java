@@ -12,6 +12,7 @@ public class Livro {
 	
 	public Livro(String t, int q)
 	{
+		t = t.toUpperCase();
 		titulo = t;
 		quantidade = q;
 	}
@@ -23,6 +24,7 @@ public class Livro {
 	
 	public void setTitulo (String t)
 	{
+		t = t.toUpperCase();
 		titulo = t;
 	}
 	

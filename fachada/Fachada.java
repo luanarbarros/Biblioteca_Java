@@ -63,6 +63,7 @@ public class Fachada {
 		//MÉTODOS DE CADASTRO  DE LIVROS E USUÁRIOS
 		
 		public static Livro cadastrarLivros(String titulo, ArrayList<String>nomes, int quantidade) throws Exception{
+			titulo = titulo.toUpperCase();
 			Livro l = repositorio.localizarLivro(titulo);
 			if (l!=null)
 				throw new Exception ("Livro ja cadastrado: " + titulo + "\n");
@@ -112,11 +113,12 @@ public class Fachada {
 		
 		public static Emprestimo criarEmprestimo (String titulo) throws Exception
 		{
+			titulo = titulo.toUpperCase();
 			Livro l = repositorio.localizarLivro(titulo);
 						
 			if (l == null)
 				throw new Exception ("Emprestimo não efetuado: Livro não encontrado!");
-			else if(logado.localizarEmprestimoPorLivro(titulo)!=null)
+			else if( (logado.localizarEmprestimoPorLivro(titulo)!=null) && (logado.localizarEmprestimoPorLivro(titulo).getDatadev().equals("")) )
 				throw new Exception ("Voce ja possui uma unidade emprestada deste livro");				
 			else if (l.getQuantidade() < 1)
 				throw new Exception ("Emprestimo não efetuado: Não há exemplares desponíveis para empréstimo!");
@@ -186,6 +188,7 @@ public class Fachada {
 		
 		public static ArrayList<Livro> listarLivrosPorFragmentoDoTitulo (String fragmento)
 		{
+			fragmento = fragmento.toUpperCase();
 			ArrayList<Livro> livros = repositorio.getLivros();
 			ArrayList<Livro> livrosComFragmento = new ArrayList<Livro> ();
 			for (Livro l: livros)
@@ -205,6 +208,7 @@ public class Fachada {
 		
 		public static ArrayList<Livro> listarLivrosPorFragmentoDoAutor (String fragmento)
 		{
+			fragmento = fragmento.toUpperCase();
 			ArrayList<Autor> autores = repositorio.getAutores();
 			ArrayList<Livro> livrosComFragmento = new ArrayList<Livro> ();
 			for (Autor a: autores){
