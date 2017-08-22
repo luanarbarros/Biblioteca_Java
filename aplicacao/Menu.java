@@ -252,7 +252,7 @@ public class Menu {
 		String text1 = "\n\n1. login\n2. Logoff\n3. Listar Livros\n4. Buscar livro por titulo\n5. Buscar livro por autor\n6.Listagem de usuários\n7. Listar emprestimos\n";
 		String text2 = text1 + "8. Emprestimo\n9. Devolução\n10. Listar meus emprestimos\n";
 		String text3 = text2 + "11. Cadastrar usuário\n12. Excluir usuário";
-		if (Fachada.getLogado() == null)
+		if (Fachada.getLogado() == null )
 			System.out.println(text1 + "\n0. sair");
 		else if ( Fachada.getLogado() instanceof Administrador )
 		{
