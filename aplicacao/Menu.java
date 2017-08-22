@@ -16,8 +16,7 @@ import modelo.Emprestimo;
 import modelo.Funcionario;
 
 public class Menu {
-	
-	
+		
 	public static void main(String[] args)
 	{
 			int opcao;
@@ -36,6 +35,13 @@ public class Menu {
 			{
 				preCadastroLivros();
 				precadastroUsuarios();
+				simularLogin("Daltro","D1234");
+				simularEmprestimo("Sinais e Sistemas");
+				simularDevolucao(1);
+				simularLogoff();
+				simularLogin("Admin","Admin");
+				simularEmprestimo("Microeletronica");
+								
 			}
 			catch (Exception e)
 			{
@@ -216,6 +222,16 @@ public class Menu {
 					case 12:
 						if (Fachada.getLogado() instanceof Administrador)
 						{
+							System.out.print("Nome do usuario: ");
+							nome = teclado.nextLine();
+							try
+							{
+								Fachada.excluirUsuario(nome);
+							}
+							catch (Exception e)
+							{
+								System.out.println(e.getMessage());
+							}
 							
 						}
 						else
@@ -225,6 +241,7 @@ public class Menu {
 						break;
 					default:
 						System.out.println("Não é uma opção válida");
+						break;
 				}
 			
 			}while (opcao!=0);
@@ -239,12 +256,12 @@ public class Menu {
 			System.out.println(text1 + "\n0. sair");
 		else if ( Fachada.getLogado() instanceof Administrador )
 		{
-			System.out.println(text3);
+			
 			System.out.println(text3 + "\n0. sair");
 		}
 		else if ( (Fachada.getLogado() instanceof Aluno) || (Fachada.getLogado() instanceof Funcionario) )  
 		{
-			System.out.println(text2);
+			
 			System.out.println(text2 + "\n0. sair");
 		}
 		else
@@ -287,7 +304,7 @@ public class Menu {
 	public static void precadastroUsuarios() throws Exception 
 	{
 		//Fachada.cadastrarUsuario("Luana", "lu1234", "Aluno", "Eng. Elétrica");
-		//Fachada.cadastrarUsuario("Daltro", "D1234", "Aluno", "Eng. Elétrica");
+		Fachada.cadastrarUsuario("Daltro", "D1234", "Aluno", "Eng. Elétrica");
 		Fachada.cadastrarUsuario("Admin", "Admin", "Administrador", "Diretoria");
 		//Fachada.cadastrarUsuario("Zeneide", "Z1234", "Funcionario", "Organizadora dos Livros");
 	}
@@ -365,4 +382,24 @@ public class Menu {
 		}
 	}
 
+	public static void simularEmprestimo (String titulo) throws Exception
+	{
+		Fachada.criarEmprestimo(titulo);
+	
+	}
+
+	public static void simularDevolucao (int id) throws Exception
+	{
+		Fachada.criarDevolucao(id); 
+	}
+	
+	public static void simularLogin(String nome, String senha) throws Exception
+	{
+		Fachada.login(nome, senha);
+	}
+
+	public static void simularLogoff() throws Exception
+	{
+		Fachada.logoff();
+	}
 }

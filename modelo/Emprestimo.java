@@ -73,8 +73,8 @@ public class Emprestimo {
 		return "\nEmprestimo numero ="+ id 
 				+ "\nData de Emprestimo = " + dataemp
 				+ "\nData de Devolução = " + datadev
-				+ "\nUsuario = " + usuario.getNome()
-				+ "\nLivro = " + livro.getTitulo()
+				+ "\nUsuario = " /*+ usuario.getNome()*/
+				+ "\nLivro = "/* + livro.getTitulo()*/
 				+ "\nMulta = " + multa;
 	}
 }

@@ -159,10 +159,23 @@ public class Fachada {
 				// remover relação do empréstimo com o livro 
 				for ( Emprestimo emprestimo: emprestimosDeU)
 				{
-					emprestimo.getLivro().removerEmprestimo(emprestimo); // remove os empréstimos do objeto livro remove o livro do objeto empréstimo
+					//emprestimo.getLivro().removerEmprestimo(emprestimo); // remove os empréstimos do objeto livro remove o livro do objeto empréstimo
+					for (Livro l: repositorio.getLivros() )
+					{
+						if (l.equals(emprestimo.getLivro()))
+						{
+							l.removerEmprestimo(emprestimo);
+						}
+					}
+							
+					if  (repositorio.getLivros().indexOf(emprestimo.getLivro()) != -1)
+						throw new Exception ("Erro ao desvinclular o emprestimo do livro");
+					
 					emprestimo.setLivro(null);
 					emprestimo.setUsuario(null); // remover relação do empréstimo com o usuário
-					emprestimo = null; // remove a relação do usuário com o empréstimo
+					//emprestimo = null; 
+					repositorio.removerEmprestimo(emprestimo);
+					
 				}
 				
 				repositorio.removerUsuario(u);	

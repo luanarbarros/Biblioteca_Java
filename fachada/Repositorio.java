@@ -25,7 +25,7 @@ public class Repositorio {
 	public void adicionarAutor (Autor a)
 	{
 		//autores.add(a);
-		autores.put(a.getNome(), a);
+		autores.put( a.getNome(), a);
 	}
 	
 	public void removerAutor (Autor a)
@@ -40,7 +40,7 @@ public class Repositorio {
 	
 	public ArrayList<Autor> getAutores(){
 
-		return new ArrayList<Autor> (autores.values() ); 
+		return new ArrayList<Autor> ( autores.values() ); 
 	}
 	
 	//EMPRESTIMO
@@ -84,7 +84,7 @@ public class Repositorio {
 		
 	public ArrayList<Livro> getLivros(){
 		
-		return new ArrayList<Livro> (livros.values() ); 
+		return new ArrayList<Livro> ( livros.values() ); 
 	}
 	
 	//USUARIO
