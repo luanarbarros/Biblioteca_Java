@@ -126,8 +126,8 @@ public class Teste
 	public void cadastrarUsuario() throws Exception 
 	{
 		
-		Fachada.cadastrarUsuario("Luana", "lu1234");
-		Fachada.cadastrarUsuario("Daltro", "D1234");
+		Fachada.cadastrarUsuario("Luana", "lu1234", "Aluno", "Eng. Elétrica");
+		Fachada.cadastrarUsuario("Daltro", "D1234", "Aluno", "Eng. Elétrica");
 		
 	}
 	

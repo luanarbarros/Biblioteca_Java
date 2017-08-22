@@ -5,11 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-
+import modelo.Administrador;
+import modelo.Aluno;
 import modelo.Autor;
 import modelo.Livro;
 import modelo.Emprestimo;
 import modelo.Usuario;
+import modelo.Funcionario;
 
 public class Fachada {
 
@@ -95,16 +97,76 @@ public class Fachada {
 			return l;
 		}
 		
-		
-		public static Usuario cadastrarUsuario(String nome, String senha) throws Exception{
+		//Método para cadastrar o usuário
+		public static Usuario cadastrarUsuario(String nome, String senha, String tipo, String departamentoCurso) throws Exception{
 			Usuario u = repositorio.localizarUsuario(nome);
 			if(u!=null){
 				throw new Exception ("Erro: Usuario ja cadastrado");
 			}
 			else
 			{
-				u=new Usuario(nome, senha, 10);
-				repositorio.adicionarUsuario(u);
+				tipo = tipo.toUpperCase();
+				if (tipo.equals("FUNCIONARIO"))
+				{
+					u = new Funcionario (nome, senha, departamentoCurso);
+					repositorio.adicionarUsuario(u);
+					return u;
+				}
+				else if (tipo.equals("ALUNO"))
+				{
+					u = new Aluno (nome, senha, departamentoCurso);
+					repositorio.adicionarUsuario(u);
+					return u;
+				}
+				else if (tipo.equals("ADMINISTRADOR"))
+				{
+					u = new Administrador (nome, senha, departamentoCurso);
+					repositorio.adicionarUsuario(u);
+					return u;
+				}
+				else
+				{
+					throw new Exception ("Tipo de usuário desconhecido");
+				}
+			}
+		}
+		
+		//Método para excluir o usuário
+		public static Usuario excluirUsuario (String nome) throws Exception
+		{
+			Usuario u  = repositorio.localizarUsuario(nome);
+				
+			if (!(logado instanceof Administrador))
+			{
+				throw new Exception ("Você não possui permição para realizar essa operação!");
+			}
+			else if (u == null)
+			{
+				throw new Exception ("ERRO! Usuário não encontrado!");
+			}
+			else 
+			{
+				ArrayList<Emprestimo> emprestimosDeU = u.getEmprestimos();
+				for (Emprestimo emprestimo: emprestimosDeU)
+				{
+					if (emprestimo.getDatadev().equals(""))
+						throw new Exception ("Erro! O usuário ainda possui empréstimos pendentes");
+				}
+				
+				//remover o usuário
+				//remover todos seus empréstimos
+				
+				// remover relação do empréstimo com o livro 
+				for ( Emprestimo emprestimo: emprestimosDeU)
+				{
+					emprestimo.getLivro().removerEmprestimo(emprestimo); // remove os empréstimos do objeto livro remove o livro do objeto empréstimo
+					emprestimo.setLivro(null);
+					emprestimo.setUsuario(null); // remover relação do empréstimo com o usuário
+					emprestimo = null; // remove a relação do usuário com o empréstimo
+				}
+				
+				repositorio.removerUsuario(u);	
+				
 				return u;
 			}
 		}
@@ -177,9 +239,7 @@ public class Fachada {
 				return emprestimo;
 			}			
 		}
-		
-		
-		
+				
 		// MÉTODOS DE LISTAGEM 
 		
 		public static ArrayList<Livro> listarLivros(){
@@ -222,8 +282,7 @@ public class Fachada {
 			else
 				return livrosComFragmento;
 		}
-		
-		
+			
 		public static ArrayList<Emprestimo> listarEmprestimos(){
 			return repositorio.getEmprestimos();
 		}

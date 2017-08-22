@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class Usuario {
+public abstract class Usuario {
 	
 	private String nome;
 	private String senha;
@@ -23,49 +23,49 @@ public class Usuario {
 		senha = s;
 	}
 	
-	public String getNome()
+	public final String getNome()
 	{
 		return nome;
 	}
 	
-	public String getSenha()
+	public final String getSenha()
 	{
 		return senha;
 	}
 	
-	public int getPrazo()
+	public final int getPrazo()
 	{
 		return prazo;
 	}
 	
-	public ArrayList<Emprestimo> getEmprestimos(){
+	public final ArrayList<Emprestimo> getEmprestimos(){
 		return emprestimos;
 	}
 	
-	public void setNome  (String n)
+	public final void setNome  (String n)
 	{
 		nome = n;
 	}
-	public void setSenha (String s)
+	public final void setSenha (String s)
 	{
 		senha = s;
 	}
-	public void setPrazo (int p)
+	public final void setPrazo (int p)
 	{
 		prazo = p;
 	}
 	
-	public void adicionarEmprestimo (Emprestimo e)
+	public final void adicionarEmprestimo (Emprestimo e)
 	{
 		emprestimos.add(e);
 	}
 	
-	public void removerEmprestimo (Emprestimo e)
+	public final void removerEmprestimo (Emprestimo e)
 	{
 		emprestimos.remove(e);
 	}
 	
-	public Emprestimo localizarEmprestimo(int id)
+	public final Emprestimo localizarEmprestimo(int id)
 	{
 		for(Emprestimo e : emprestimos){
 			if(e.getId() == id)
@@ -74,7 +74,7 @@ public class Usuario {
 		return null;
 	}
 	
-	public Emprestimo localizarEmprestimoPorLivro(String tituloDoLivro)
+	public final Emprestimo localizarEmprestimoPorLivro(String tituloDoLivro)
 	{
 		for(Emprestimo e : emprestimos){
 			if(e.getLivro().getTitulo().equals(tituloDoLivro))
@@ -89,9 +89,10 @@ public class Usuario {
 		String text;
 		text = "nome= " + nome + " senha= " + senha + " prazo= " + prazo + " ";
 		text = text + "\nIDs dos Empestimos = ";
-		if (emprestimos == null)
+		if (emprestimos.isEmpty())
 		{
-			return text;
+			text = text + "Não há emprestimos!";
+			return (text);
 		}
 		else
 		{

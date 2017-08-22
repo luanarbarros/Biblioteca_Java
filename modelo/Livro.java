@@ -79,7 +79,8 @@ public class Livro {
 	
 	public void removerEmprestimo (Emprestimo e)
 	{
-		emprestimos.add(e);
+		//emprestimos.add(e);
+		emprestimos.remove(e);
 	}
 	
 	public Autor localizarAutor(String nome){

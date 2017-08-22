@@ -13,6 +13,6 @@ public class ListaDeCoisasDevemSerFeitas {
 	
 	
 	
-	
+	// se não há usuários cadastrados, não há como alguém fazer login
 
 }

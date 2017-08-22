@@ -1,38 +1,46 @@
 package fachada;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
+
 import modelo.Autor;
 import modelo.Emprestimo;
 import modelo.Livro;
 import modelo.Usuario;
 
 public class Repositorio {
-	private ArrayList<Autor> autores = new ArrayList<Autor>();
+	
+	//private ArrayList<Autor> autores = new ArrayList<Autor>();
+	private TreeMap <String,Autor> autores = new TreeMap <String,Autor> (); 
+	
 	private ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
-	private ArrayList<Livro> livros = new ArrayList<Livro>();
-	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-
+		
+	//private ArrayList<Livro> livros = new ArrayList<Livro>();
+	private TreeMap <String,Livro> livros = new TreeMap < String,Livro > ();
+	
+	//private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private TreeMap <String,Usuario> usuarios = new TreeMap <String,Usuario> ();
+	
 	//AUTOR
 	public void adicionarAutor (Autor a)
 	{
-		autores.add(a);
+		//autores.add(a);
+		autores.put(a.getNome(), a);
 	}
 	
 	public void removerAutor (Autor a)
 	{
-		autores.remove(a);
+		autores.remove(a.getNome());
 	}
 	
 	public Autor localizarAutor(String nome){
-		nome = nome.toUpperCase();
-		for(Autor a : autores){
-			if(a.getNome().equals(nome))
-				return a;
-		}
-		return null;
+		
+		return autores.get(nome);
 	}
+	
 	public ArrayList<Autor> getAutores(){
-		return autores;
+
+		return new ArrayList<Autor> (autores.values() ); 
 	}
 	
 	//EMPRESTIMO
@@ -60,45 +68,42 @@ public class Repositorio {
 	
 	//LIVRO
 	public void adicionarLivro (Livro l){
-		livros.add(l);
+		
+		livros.put(l.getTitulo(), l);
 	}
 	
 	public void removerLivro(Livro l){
-		livros.remove(l);
+		
+		livros.remove(l.getTitulo());
 	}
 	
 	public Livro localizarLivro(String titulo){
-		titulo = titulo.toUpperCase();
-		for(Livro l : livros){
-			if(l.getTitulo().equals(titulo))
-				return l;
-		}
-		return null;
+		
+		return livros.get(titulo);
 	}
-	
-	
+		
 	public ArrayList<Livro> getLivros(){
-		return livros;
+		
+		return new ArrayList<Livro> (livros.values() ); 
 	}
 	
 	//USUARIO
 	public void adicionarUsuario(Usuario u){
-		usuarios.add(u);
+		
+		usuarios.put(u.getNome(), u);
 	}
 	
 	public void removerUsuario(Usuario u){
-		usuarios.remove(u);
+		usuarios.remove(u.getNome());
 	}
 	
 	public Usuario localizarUsuario(String nome){
-		for(Usuario u: usuarios){
-			if(u.getNome().equals(nome))
-				return u;
-		}
-		return null;
+		
+		return usuarios.get(nome);
+		
 	}
 	
 	public ArrayList<Usuario> getUsuarios(){
-		return usuarios;
+		return new ArrayList<Usuario> (usuarios.values() ); 
 	}
 }

@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import fachada.Fachada;
+import modelo.Administrador;
+import modelo.Aluno;
 import modelo.Autor;
 import modelo.Usuario;
 import modelo.Livro;
 import modelo.Emprestimo;
+import modelo.Funcionario;
 
 public class Menu {
 	
@@ -111,9 +114,12 @@ public class Menu {
 						livrosListados = null;
 						break;
 					case 6:
-						imprimirEmprestimos();
+						imprimirListaUsuarios();
 						break;
 					case 7:
+						imprimirEmprestimos();
+						break;
+					case 8:
 						if (Fachada.getLogado() != null)
 						{
 							System.out.print("Digite o título do livro: ");
@@ -138,7 +144,7 @@ public class Menu {
 							System.out.println("Não há usuários logados\nLogue para desbloquear essa opção!\n");
 						}
 						break;
-					case 8:
+					case 9:
 						if (Fachada.getLogado() != null)
 						{
 							System.out.println("Digite o ID do empréstimo: ");
@@ -159,7 +165,7 @@ public class Menu {
 							System.out.println("Não há usuários logados\nLogue para desbloquear essa opção!\n");
 						}
 						break;
-					case 9:
+					case 10:
 						if (Fachada.getLogado() != null)
 						{
 							ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo> ();
@@ -180,6 +186,43 @@ public class Menu {
 							System.out.println("Não há usuários logados\nLogue para desbloquear essa opção!\n");
 						}
 						break;
+					case 11:
+						  String departamentoCurso;
+						  String tipo;
+						if (Fachada.getLogado() instanceof Administrador)
+						{
+							System.out.print("Nome do usuario: ");
+							nome = teclado.nextLine();
+							System.out.println("\nSenha: ");
+							senha = teclado.nextLine();
+							System.out.println("\nTipo de usuário: ");
+							tipo = teclado.nextLine();
+							System.out.println("\nDepartamento ou Curso: ");
+							departamentoCurso = teclado.nextLine();
+							try {
+							Fachada.cadastrarUsuario(nome, senha, tipo, departamentoCurso);
+							}
+							catch (Exception e)
+							{
+								System.out.println(e.getMessage());
+							}
+							
+						}
+						else
+						{
+							System.out.println("Você não possui permições para executar essa tarefa");
+						}
+						break;
+					case 12:
+						if (Fachada.getLogado() instanceof Administrador)
+						{
+							
+						}
+						else
+						{
+							System.out.println("Você não possui permições para executar essa tarefa");
+						}
+						break;
 					default:
 						System.out.println("Não é uma opção válida");
 				}
@@ -189,12 +232,25 @@ public class Menu {
 	
 	public static void exibirMenu ()
 	{
-		String text1 = "\n\n1. login\n2. Logoff\n3. Listar Livros\n4. Buscar livro por titulo\n5. Buscar livro por autor\n6. Listar emprestimos\n";
-		String text2 = text1 + "7. Emprestimo\n8. Devolução\n9. Listar meus emprestimos";
+		String text1 = "\n\n1. login\n2. Logoff\n3. Listar Livros\n4. Buscar livro por titulo\n5. Buscar livro por autor\n6.Listagem de usuários\n7. Listar emprestimos\n";
+		String text2 = text1 + "8. Emprestimo\n9. Devolução\n10. Listar meus emprestimos\n";
+		String text3 = text2 + "11. Cadastrar usuário\n12. Excluir usuário";
 		if (Fachada.getLogado() == null)
 			System.out.println(text1 + "\n0. sair");
-		else
+		else if ( Fachada.getLogado() instanceof Administrador )
+		{
+			System.out.println(text3);
+			System.out.println(text3 + "\n0. sair");
+		}
+		else if ( (Fachada.getLogado() instanceof Aluno) || (Fachada.getLogado() instanceof Funcionario) )  
+		{
 			System.out.println(text2);
+			System.out.println(text2 + "\n0. sair");
+		}
+		else
+		{
+			System.out.println("Erro! Tipo de usuário desconhecido!");
+		}
 	}
 	
 	public static void preCadastroLivros() throws Exception
@@ -230,8 +286,10 @@ public class Menu {
 	
 	public static void precadastroUsuarios() throws Exception 
 	{
-		Fachada.cadastrarUsuario("Luana", "lu1234");
-		Fachada.cadastrarUsuario("Daltro", "D1234");
+		//Fachada.cadastrarUsuario("Luana", "lu1234", "Aluno", "Eng. Elétrica");
+		//Fachada.cadastrarUsuario("Daltro", "D1234", "Aluno", "Eng. Elétrica");
+		Fachada.cadastrarUsuario("Admin", "Admin", "Administrador", "Diretoria");
+		//Fachada.cadastrarUsuario("Zeneide", "Z1234", "Funcionario", "Organizadora dos Livros");
 	}
 	
 	public static void listarTodasInfomacoes()
@@ -282,9 +340,7 @@ public class Menu {
 		}
 		System.out.println(texto);	
 	}
-	
-	
-	
+			
 	public static void imprimirListaLivros ()
 	{
 		String texto;
@@ -298,6 +354,15 @@ public class Menu {
 				texto+= l.toString() + "\n";
 		}
 		System.out.println(texto);
+	}
+
+	public static void imprimirListaUsuarios ()
+	{
+		ArrayList <Usuario> usuarios = Fachada.listarUsuarios();
+		for (Usuario u: usuarios)
+		{
+			System.out.println( u.getNome() +  (( u instanceof  Funcionario )? " - Funcionário": " - Aluno") );
+		}
 	}
 
 }

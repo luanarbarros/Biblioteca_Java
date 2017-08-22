@@ -95,8 +95,8 @@ public class TelaPrincipal {
 					autores5.add("Coelho, L.S.");
 					Fachada.cadastrarLivros("Identificacao de Sistemas Dinamicos Lineares", autores5, 2);
 					
-					Fachada.cadastrarUsuario("Luana", "lu1234");
-					Fachada.cadastrarUsuario("Daltro", "D1234");
+					Fachada.cadastrarUsuario("Luana", "lu1234", "Aluno", "Eng. Elétrica");
+					Fachada.cadastrarUsuario("Daltro", "D1234", "Aluno", "Eng. Elétrica");
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "cadastro incorreto !");
